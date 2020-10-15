@@ -2,14 +2,13 @@ require 'game'
 
 describe Game do
   subject(:game) { described_class.new(player_1, player_2) }
-  let(:player_1) { double :player, attack: player_2.receive_damage }
-  let(:player_2) { double :player, receive_damage: true }
+  let(:player_1) { double :player_1, receive_damage: 'P1: 90HP' }
+  let(:player_2) { double :player_2, receive_damage: 'P2: 90HP' }
 
   context '#attack' do
-    it 'damages the player' do
-      expect(player_2).to receive(:receive_damage)
-      game.player_1.attack(player_2)
-      # player_1.attack(player_2.player)
+    it 'damages player2 then player1' do
+      expect(game.attack).to eq 'P2: 90HP'
+      expect(game.attack).to eq 'P1: 90HP'
     end
   end
 
